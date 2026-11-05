@@ -1,19 +1,195 @@
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>daniel tokyo dk</title>
-    <link rel="stylesheet" href="index.css">
+    <title>Daniel Tokyo DK - Projeto Moderno</title>
+    <style>
+        /* Configuração para a rolagem da página ser suave */
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        /* Menu de Navegação Fixo no Topo */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #1e1e24;
+            padding: 15px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #00adb5;
+        }
+
+        /* Seção de Destaque com o buscador */
+        header {
+            height: 60vh;
+            background: linear-gradient(135deg, #1e1e24, #00adb5);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 60px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Barra de Pesquisa Moderna */
+        .search-container {
+            margin-top: 20px;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            outline: none;
+        }
+
+        /* Estilo das seções que vão descer ao clicar */
+        section {
+            padding: 100px 20px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        section:nth-child(even) {
+            background-color: #fff;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* Cards de Conteúdo */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            width: 250px;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Classe para esconder itens que não batem com a pesquisa */
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
-    
-            <main class="cartao">
-                <h1>olá, aluno!</h1>
-                <p>esse e o esqueleto do site criado com html e css, para o projeto final da disciplina de programação web.</p>
-                <button class="botão-estudar">clicar para estudar</button>
-            </main>
+
+    <!-- Menu com links que fazem a página descer sozinha -->
+    <nav>
+        <a href="#inicio">Início</a>
+        <a href="#cursos">Cursos</a>
+        <a href="#sobre">Sobre</a>
+    </nav>
+
+    <!-- Cabeçalho com o Buscador -->
+    <header id="inicio">
+        <h1>daniel tokyo dk</h1>
+        <p>Projeto final da disciplina de programação web</p>
+        
+        <div class="search-container">
+            <input type="text" id="inputPesquisa" class="search-box" placeholder="Digite o que deseja estudar...">
+        </div>
+    </header>
+
+    <!-- Seção de Cursos / Conteúdo -->
+    <section id="cursos">
+        <h2>O que você quer estudar hoje?</h2>
+        <p>Use a barra de pesquisa acima para filtrar as matérias abaixo em tempo real!</p>
+        
+        <div class="card-container">
+            <div class="card" data-tags="html css web programacao">
+                <h3>HTML e CSS</h3>
+                <p>Aprenda a estruturar e estilizar suas páginas web do zero.</p>
+            </div>
+            <div class="card" data-tags="javascript js logica programacao">
+                <h3>JavaScript</h3>
+                <p>Deixe seu site vivo e dinâmico com funções avançadas.</p>
+            </div>
+            <div class="card" data-tags="github git hospedagem nuvem">
+                <h3>Git e GitHub</h3>
+                <p>Como salvar seus códigos e colocar seus projetos direto no ar.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Outra seção apenas para dar espaço para rolagem -->
+    <section id="sobre">
+        <h2>Sobre o Projeto</h2>
+        <p>Esse é o esqueleto de um portal de estudos moderno e responsivo.</p>
+    </section>
+
+    <!-- JavaScript para fazer a pesquisa funcionar na hora -->
+    <script>
+        const inputPesquisa = document.getElementById('inputPesquisa');
+        const cards = document.querySelectorAll('.card');
+
+        inputPesquisa.addEventListener('input', () => {
+            const textoBusca = inputPesquisa.value.toLowerCase();
+
+            cards.forEach(card => {
+                // Pega as palavras-chave guardadas na propriedade 'data-tags' de cada card
+                const tags = card.getAttribute('data-tags').toLowerCase();
+                const titulo = card.querySelector('h3').innerText.toLowerCase();
+
+                // Se o texto digitado estiver nas tags ou no título, mostra o card. Se não, esconde.
+                if (tags.includes(textoBusca) || titulo.includes(textoBusca)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
-<a href="https://discord.gg/eyyqG3ZMf" target="_blank" class="botao-estudar">Clique aqui para estudar</a>
